@@ -54,6 +54,7 @@ pip install -r requirements.txt
 - `search_glsl_fundamentals("uniforms")` - GLSL basics and theory
 - `search_r3f_shader_setup("shaderMaterial")` - R3F implementation
 - `search_particle_shaders("gpu particles")` - Particle systems
+- `search_threejs_material_modification("onBeforeCompile")` - Advanced material patching
 - `get_all_shader_resources()` - Complete resource list
 
 ## Documentation Sources
@@ -76,7 +77,17 @@ pip install -r requirements.txt
 11. **Maxime Heckel Advanced Particles** - FBO techniques
 12. **TheFrontDev Curve Particles** - Trail effects
 
-**Total: 13 comprehensive documentation sources**
+### Advanced Three.js Material Modification
+13. **Dusan Bosnjak - Extending Materials with GLSL** - The definitive onBeforeCompile guide
+14. **Three.js Journey - Modified Materials** - Comprehensive material modification lesson
+15. **Codrops - Magical Marbles** - Practical onBeforeCompile examples
+16. **Three.js ShaderChunk Source** - All shader chunk definitions
+17. **Three.js ShaderLib Source** - Built-in material shader programs
+18. **Three.js UniformsLib Source** - Uniform definitions
+19. **Three.js UniformsUtils Docs** - Uniform utilities API
+20. **Official Modified Materials Example** - Live demo
+
+**Total: 22 comprehensive documentation sources**
 
 ## Contributing
 
