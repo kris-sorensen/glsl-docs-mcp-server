@@ -60,6 +60,38 @@ DOCS_SITES = {
     "glsl_reference": {
         "base_url": "https://registry.khronos.org/OpenGL-Refpages/gl4/",
         "name": "OpenGL GLSL Reference Pages"
+    },
+    "threejs_shader_chunk": {
+        "url": "https://github.com/mrdoob/three.js/blob/master/src/renderers/shaders/ShaderChunk.js",
+        "name": "Three.js ShaderChunk Source"
+    },
+    "threejs_shader_lib": {
+        "url": "https://github.com/mrdoob/three.js/blob/master/src/renderers/shaders/ShaderLib.js", 
+        "name": "Three.js ShaderLib Source"
+    },
+    "threejs_uniforms_lib": {
+        "url": "https://github.com/mrdoob/three.js/blob/master/src/renderers/shaders/UniformsLib.js",
+        "name": "Three.js UniformsLib Source"
+    },
+    "threejs_uniforms_utils": {
+        "url": "https://threejs.org/docs/#api/en/renderers/shaders/UniformsUtils",
+        "name": "Three.js UniformsUtils Docs"
+    },
+    "onbeforecompile_guide": {
+        "url": "https://medium.com/@pailhead011/extending-three-js-materials-with-glsl-78ea7bbb9270",
+        "name": "Dusan Bosnjak - Extending Materials with GLSL"
+    },
+    "threejs_journey_modified": {
+        "url": "https://threejs-journey.com/lessons/modified-materials",
+        "name": "Three.js Journey - Modified Materials"
+    },
+    "codrops_marbles": {
+        "url": "https://tympanus.net/codrops/2021/08/02/magical-marbles-in-three-js/",
+        "name": "Codrops - Magical Marbles onBeforeCompile"
+    },
+    "threejs_modified_example": {
+        "url": "https://threejs.org/examples/webgl_materials_modified.html",
+        "name": "Three.js Official Modified Materials Example"
     }
 }
 
@@ -231,6 +263,79 @@ def search_particle_shaders(topic: str) -> Dict:
     return results
 
 @mcp.tool()
+def search_threejs_material_modification(topic: str) -> Dict:
+    """Search advanced Three.js material modification with onBeforeCompile, ShaderChunk, and ShaderLib
+    
+    Args:
+        topic (str): Material modification topic (e.g., "onBeforeCompile", "ShaderChunk", "material patching", "uniforms")
+    
+    Returns:
+        dict: Advanced Three.js shader modification tutorials and source references
+    """
+    
+    results = {}
+    
+    # Always include the definitive onBeforeCompile guide
+    if any(keyword in topic.lower() for keyword in ["onbeforecompile", "before", "compile", "patch", "modify", "extend"]):
+        results["onbeforecompile_guide"] = {
+            "source": DOCS_SITES["onbeforecompile_guide"]["name"],
+            "url": DOCS_SITES["onbeforecompile_guide"]["url"],
+            "content": fetch_content(DOCS_SITES["onbeforecompile_guide"]["url"])
+        }
+        
+        # Add Three.js Journey lesson
+        results["threejs_journey_modified"] = {
+            "source": DOCS_SITES["threejs_journey_modified"]["name"],
+            "url": DOCS_SITES["threejs_journey_modified"]["url"],
+            "content": fetch_content(DOCS_SITES["threejs_journey_modified"]["url"])
+        }
+        
+        # Add practical example
+        results["codrops_marbles"] = {
+            "source": DOCS_SITES["codrops_marbles"]["name"],
+            "url": DOCS_SITES["codrops_marbles"]["url"],
+            "content": fetch_content(DOCS_SITES["codrops_marbles"]["url"])
+        }
+    
+    # ShaderChunk and ShaderLib source references
+    if any(keyword in topic.lower() for keyword in ["chunk", "shaderchunk", "lib", "shaderlib", "source"]):
+        results["shader_chunk_source"] = {
+            "source": DOCS_SITES["threejs_shader_chunk"]["name"],
+            "url": DOCS_SITES["threejs_shader_chunk"]["url"],
+            "content": f"Three.js ShaderChunk.js contains all shader chunk definitions used in built-in materials. View source: {DOCS_SITES['threejs_shader_chunk']['url']}"
+        }
+        
+        results["shader_lib_source"] = {
+            "source": DOCS_SITES["threejs_shader_lib"]["name"],
+            "url": DOCS_SITES["threejs_shader_lib"]["url"],
+            "content": f"Three.js ShaderLib.js contains shader programs for all built-in materials. View source: {DOCS_SITES['threejs_shader_lib']['url']}"
+        }
+    
+    # Uniforms management
+    if any(keyword in topic.lower() for keyword in ["uniform", "uniforms", "uniformslib", "uniformsutils"]):
+        results["uniforms_lib_source"] = {
+            "source": DOCS_SITES["threejs_uniforms_lib"]["name"],
+            "url": DOCS_SITES["threejs_uniforms_lib"]["url"],
+            "content": f"Three.js UniformsLib.js contains uniform definitions used across materials. View source: {DOCS_SITES['threejs_uniforms_lib']['url']}"
+        }
+        
+        results["uniforms_utils_docs"] = {
+            "source": DOCS_SITES["threejs_uniforms_utils"]["name"],
+            "url": DOCS_SITES["threejs_uniforms_utils"]["url"],
+            "content": fetch_content(DOCS_SITES["threejs_uniforms_utils"]["url"])
+        }
+    
+    # Official example
+    if any(keyword in topic.lower() for keyword in ["example", "demo", "modified"]):
+        results["official_example"] = {
+            "source": DOCS_SITES["threejs_modified_example"]["name"],
+            "url": DOCS_SITES["threejs_modified_example"]["url"],
+            "content": f"Official Three.js example showing material modification in action: {DOCS_SITES['threejs_modified_example']['url']}"
+        }
+    
+    return results
+
+@mcp.tool()
 def get_all_shader_resources() -> Dict:
     """Get a comprehensive overview of all available shader resources
     
@@ -257,15 +362,26 @@ def get_all_shader_resources() -> Dict:
             "Advanced Particles with FBO": DOCS_SITES["maxime_particles"]["url"],
             "Curve-based Particles": DOCS_SITES["curve_particles"]["url"]
         },
+        "threejs_material_modification": {
+            "onBeforeCompile Guide": DOCS_SITES["onbeforecompile_guide"]["url"],
+            "Three.js Journey Modified Materials": DOCS_SITES["threejs_journey_modified"]["url"],
+            "Codrops Magical Marbles": DOCS_SITES["codrops_marbles"]["url"],
+            "ShaderChunk Source": DOCS_SITES["threejs_shader_chunk"]["url"],
+            "ShaderLib Source": DOCS_SITES["threejs_shader_lib"]["url"],
+            "UniformsLib Source": DOCS_SITES["threejs_uniforms_lib"]["url"],
+            "UniformsUtils Docs": DOCS_SITES["threejs_uniforms_utils"]["url"],
+            "Official Modified Example": DOCS_SITES["threejs_modified_example"]["url"]
+        },
         "usage": {
             "description": "Use specific search functions for targeted results:",
             "functions": [
                 "search_glsl_fundamentals() - GLSL basics, functions, uniforms, WebGL",
                 "search_r3f_shader_setup() - React Three Fiber implementation, Shadertoy conversion",
-                "search_particle_shaders() - GPU particles and advanced effects"
+                "search_particle_shaders() - GPU particles and advanced effects",
+                "search_threejs_material_modification() - onBeforeCompile, ShaderChunk, material patching"
             ]
         },
-        "total_sources": "13 comprehensive documentation sources"
+        "total_sources": "22 comprehensive documentation sources"
     }
     
     return resources
