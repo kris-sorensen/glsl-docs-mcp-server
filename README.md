@@ -58,15 +58,25 @@ pip install -r requirements.txt
 
 ## Documentation Sources
 
+### GLSL Fundamentals
 1. **The Book of Shaders** - https://thebookofshaders.com/
 2. **OpenGL.org** - https://www.opengl.org/
 3. **Khronos OpenGL** - https://www.khronos.org/opengl/
-4. **Maxime Heckel R3F Guide** - Shader setup tutorial
-5. **TheFrontDev Shadertoy to R3F** - Conversion workflow
-6. **Codrops Reveal Effect** - Practical shader effects
-7. **TheFrontDev GPU Particles** - Particle basics
-8. **Maxime Heckel Advanced Particles** - FBO techniques
-9. **TheFrontDev Curve Particles** - Trail effects
+4. **WebGL Fundamentals** - https://webglfundamentals.org/webgl/lessons/webgl-shaders-and-glsl.html
+5. **Three.js Manual - Shaders** - https://threejs.org/manual/#en/shaders
+
+### R3F Implementation
+6. **Maxime Heckel R3F Guide** - Complete shader setup tutorial
+7. **TheFrontDev Shadertoy to R3F** - Conversion workflow
+8. **Three.js Manual - Shadertoy** - https://threejs.org/manual/#en/shadertoy
+9. **Codrops Reveal Effect** - Practical shader effects
+
+### Particle Systems
+10. **TheFrontDev GPU Particles** - Particle basics
+11. **Maxime Heckel Advanced Particles** - FBO techniques
+12. **TheFrontDev Curve Particles** - Trail effects
+
+**Total: 13 comprehensive documentation sources**
 
 ## Contributing
 

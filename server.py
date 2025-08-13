@@ -44,6 +44,22 @@ DOCS_SITES = {
     "curve_particles": {
         "url": "https://www.thefrontdev.co.uk/creating-amazing-particle-effect-along-a-curve-in-react-three-fiber/",
         "name": "TheFrontDev - Curve Particles"
+    },
+    "threejs_manual_shadertoy": {
+        "url": "https://threejs.org/manual/#en/shadertoy",
+        "name": "Three.js Manual - Shadertoy"
+    },
+    "threejs_manual_shaders": {
+        "url": "https://threejs.org/manual/#en/shaders",
+        "name": "Three.js Manual - Shaders"
+    },
+    "webgl_fundamentals": {
+        "url": "https://webglfundamentals.org/webgl/lessons/webgl-shaders-and-glsl.html",
+        "name": "WebGL Fundamentals - Shaders"
+    },
+    "glsl_reference": {
+        "base_url": "https://registry.khronos.org/OpenGL-Refpages/gl4/",
+        "name": "OpenGL GLSL Reference Pages"
     }
 }
 
@@ -77,10 +93,10 @@ def fetch_content(url: str) -> str:
 
 @mcp.tool()
 def search_glsl_fundamentals(topic: str) -> Dict:
-    """Search GLSL fundamentals from Book of Shaders, OpenGL.org, and Khronos
+    """Search GLSL fundamentals from Book of Shaders, OpenGL.org, Khronos, and WebGL resources
     
     Args:
-        topic (str): GLSL topic to search for (e.g., "uniforms", "vertex shader", "fragment shader", "functions")
+        topic (str): GLSL topic to search for (e.g., "uniforms", "vertex shader", "fragment shader", "functions", "reference")
     
     Returns:
         dict: Relevant GLSL documentation and examples
@@ -113,6 +129,22 @@ def search_glsl_fundamentals(topic: str) -> Dict:
             "content": fetch_content(url)
         }
     
+    # WebGL Fundamentals for technical details
+    if any(keyword in topic.lower() for keyword in ["webgl", "glsl", "technical", "reference"]):
+        results["webgl_fundamentals"] = {
+            "source": DOCS_SITES["webgl_fundamentals"]["name"],
+            "url": DOCS_SITES["webgl_fundamentals"]["url"],
+            "content": fetch_content(DOCS_SITES["webgl_fundamentals"]["url"])
+        }
+    
+    # Three.js Manual for shader basics
+    if any(keyword in topic.lower() for keyword in ["threejs", "three", "manual", "basics"]):
+        results["threejs_shaders"] = {
+            "source": DOCS_SITES["threejs_manual_shaders"]["name"],
+            "url": DOCS_SITES["threejs_manual_shaders"]["url"],
+            "content": fetch_content(DOCS_SITES["threejs_manual_shaders"]["url"])
+        }
+    
     return results
 
 @mcp.tool()
@@ -135,12 +167,18 @@ def search_r3f_shader_setup(topic: str) -> Dict:
         "content": fetch_content(DOCS_SITES["maxime_heckel_shaders"]["url"])
     }
     
-    # Include Shadertoy conversion guide
+    # Include Shadertoy conversion guides
     if any(keyword in topic.lower() for keyword in ["shadertoy", "convert", "port"]):
         results["shadertoy_conversion"] = {
             "source": DOCS_SITES["shadertoy_to_r3f"]["name"],
             "url": DOCS_SITES["shadertoy_to_r3f"]["url"],
             "content": fetch_content(DOCS_SITES["shadertoy_to_r3f"]["url"])
+        }
+        # Also include Three.js manual Shadertoy section
+        results["threejs_shadertoy"] = {
+            "source": DOCS_SITES["threejs_manual_shadertoy"]["name"],
+            "url": DOCS_SITES["threejs_manual_shadertoy"]["url"],
+            "content": fetch_content(DOCS_SITES["threejs_manual_shadertoy"]["url"])
         }
     
     # Include reveal effect tutorial
@@ -204,11 +242,14 @@ def get_all_shader_resources() -> Dict:
         "glsl_fundamentals": {
             "The Book of Shaders": "https://thebookofshaders.com",
             "OpenGL.org": "https://www.opengl.org",
-            "Khronos OpenGL": "https://www.khronos.org/opengl"
+            "Khronos OpenGL": "https://www.khronos.org/opengl",
+            "WebGL Fundamentals": DOCS_SITES["webgl_fundamentals"]["url"],
+            "Three.js Manual - Shaders": DOCS_SITES["threejs_manual_shaders"]["url"]
         },
         "r3f_implementation": {
             "Maxime Heckel R3F Shaders": DOCS_SITES["maxime_heckel_shaders"]["url"],
             "Shadertoy to R3F Workflow": DOCS_SITES["shadertoy_to_r3f"]["url"],
+            "Three.js Manual - Shadertoy": DOCS_SITES["threejs_manual_shadertoy"]["url"],
             "Codrops Shader Effects": DOCS_SITES["codrops_reveal"]["url"]
         },
         "particle_systems": {
@@ -219,11 +260,12 @@ def get_all_shader_resources() -> Dict:
         "usage": {
             "description": "Use specific search functions for targeted results:",
             "functions": [
-                "search_glsl_fundamentals() - GLSL basics, functions, uniforms",
-                "search_r3f_shader_setup() - React Three Fiber implementation",
+                "search_glsl_fundamentals() - GLSL basics, functions, uniforms, WebGL",
+                "search_r3f_shader_setup() - React Three Fiber implementation, Shadertoy conversion",
                 "search_particle_shaders() - GPU particles and advanced effects"
             ]
-        }
+        },
+        "total_sources": "13 comprehensive documentation sources"
     }
     
     return resources
